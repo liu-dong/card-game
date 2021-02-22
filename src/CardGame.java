@@ -26,10 +26,6 @@ public class CardGame {
         play(map, "乙");
         play(map, "丙");
         //如果有炸弹则计分
-
-        //判输赢
-
-
     }
 
     //出牌
@@ -47,11 +43,12 @@ public class CardGame {
             pokerList.removeIf(poker -> poker.getSort() == sort);
         }
         System.out.println(personName + "剩余的牌" + pokerList.size() + "张：" + pokerList.toString());
+        person.setPokerList(pokerList);
+        map.put(personName, person);
+        //判输赢
         if (pokerList.size() ==0){
             System.out.println(personName+"赢了！");
         }
-        person.setPokerList(pokerList);
-        map.put(personName, person);
     }
 
 
