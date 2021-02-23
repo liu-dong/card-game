@@ -19,7 +19,7 @@ public class CardGame {
         //发牌
         Map<String, Object> map = toDeal(pokerList);
         System.out.println("剩余牌的数量：" + pokerList.size());
-        //出牌
+        //开始出牌
         round(map, "甲");
         round(map, "乙");
         round(map, "丙");
