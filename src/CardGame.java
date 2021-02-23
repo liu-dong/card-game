@@ -32,7 +32,10 @@ public class CardGame {
      */
     private static void round(Map<String, Object> map, String personName) {
         String[] ss = getMovePoker(personName);
-        //校验规则
+        //校验出牌是否符合规则
+        if(!checkoutPlayRule(ss)){
+            return;
+        }
         Person person = (Person) map.get(personName);//出牌人
         List<Poker> pokerList = play(ss, person);//出牌
         //如果有炸弹则计分
@@ -180,5 +183,31 @@ public class CardGame {
             }
         }
         return Arrays.asList(array);
+    }
+
+    /**
+     * 校验出牌规则
+     * @param ss
+     * @return
+     */
+    public static boolean checkoutPlayRule  (String[] ss) {
+        /*斗地主*/
+        //炸弹
+        //飞机
+        //连对
+        //顺子
+        //四带
+        //三带
+        //对子
+        //单牌
+        /*双剑*/
+        //炸弹（超过四个、双王炸，5-10-K）
+        //飞机（以三带二为基础）
+        //连对（三对以上）
+        //顺子（7个以上）
+        //三带二
+        //对子
+        //单牌
+        return true;
     }
 }
