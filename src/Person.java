@@ -5,8 +5,17 @@ import java.util.List;
  */
 public class Person {
 
+    private String personName;
     private List<Poker> pokerList;
     private Integer score;
+
+    public String getPersonName() {
+        return personName;
+    }
+
+    public void setPersonName(String personName) {
+        this.personName = personName;
+    }
 
     public List<Poker> getPokerList() {
         return pokerList;

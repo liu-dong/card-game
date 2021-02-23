@@ -20,39 +20,91 @@ public class CardGame {
         Map<String, Object> map = toDeal(pokerList);
         System.out.println("剩余牌的数量：" + pokerList.size());
         //出牌
-        play(map, "甲");
-        Person jia = (Person) map.get("甲");
-        System.out.println(jia.getPokerList().toString());
-        play(map, "乙");
-        play(map, "丙");
-        //如果有炸弹则计分
+        round(map, "甲");
+        round(map, "乙");
+        round(map, "丙");
     }
 
-    //出牌
-    private static void play(Map<String, Object> map, String personName) {
-        Scanner input = new Scanner(System.in);
-        System.out.println(personName + "请输入要出牌的序号，用逗号隔开");
-        String s = input.nextLine();
-        System.out.println(personName + "输入数字为：" + s);
-        String[] ss = s.split(",");
-        Person person = (Person) map.get(personName);
+    /**
+     * 回合
+     * @param map
+     * @param personName
+     */
+    private static void round(Map<String, Object> map, String personName) {
+        String[] ss = getMovePoker(personName);
+        //校验规则
+        Person person = (Person) map.get(personName);//出牌人
+        List<Poker> pokerList = play(ss, person);//出牌
+        //如果有炸弹则计分
+        int score = computerScore(ss);
+        //判输赢
+        if (pokerList.size() == 0) {
+            System.out.println(personName + "赢了！");
+        }
+        person.setPokerList(pokerList);
+        person.setScore(score);
+        map.put(personName, person);
+    }
+
+    /**
+     * 出牌
+     * @param ss
+     * @param person
+     * @return
+     */
+    private static List<Poker> play(String[] ss, Person person) {
         List<Poker> pokerList = new ArrayList<>(person.getPokerList());
         for (String value : ss) {
             int sort = Integer.parseInt(value);
             //移除需要出的牌
             pokerList.removeIf(poker -> poker.getSort() == sort);
         }
-        System.out.println(personName + "剩余的牌" + pokerList.size() + "张：" + pokerList.toString());
-        person.setPokerList(pokerList);
-        map.put(personName, person);
-        //判输赢
-        if (pokerList.size() ==0){
-            System.out.println(personName+"赢了！");
+        System.out.println(person.getPersonName() + "剩余的牌" + pokerList.size() + "张：" + pokerList.toString());
+        return pokerList;
+    }
+
+    /**
+     * 获取每个人需要出的牌
+     * @param personName
+     * @return
+     */
+    private static String[] getMovePoker(String personName) {
+        Scanner input = new Scanner(System.in);
+        System.out.println(personName + "请输入要出牌的序号，用逗号隔开");
+        String s = input.nextLine();
+        System.out.println(personName + "输入数字为：" + s);
+        return s.split(",");
+    }
+
+    /**
+     * 计分
+     * @param ss
+     * @return
+     */
+    private static int computerScore(String[] ss) {
+        int num = 0;//炸弹的数量
+        int score = 100;//分数
+        //判断炸弹计分并计分
+        for (int i = 0; i < ss.length; i++) {
+            if ((ss[i] + 1).equals(ss[i + 1])) {
+                num++;
+                //王炸
+                if (Integer.parseInt(ss[i]) == 53 && Integer.parseInt(ss[i + 1]) == 54) {
+                    score = score * 4;
+                }
+            }
         }
+        if (num >= 4) {
+            score *= 2;
+        }
+        return score;
     }
 
 
-    //生成一副牌
+    /**
+     * 生成一副牌
+     * @return
+     */
     private static List<Poker> getPokerList() {
         List<Poker> pokerList = new ArrayList<>();
         int flowerColor = 1;
@@ -77,7 +129,11 @@ public class CardGame {
         return pokerList;
     }
 
-    //发牌
+    /**
+     * 发牌
+     * @param pokerList
+     * @return
+     */
     private static Map<String, Object> toDeal(List<Poker> pokerList) {
         Map<String, Object> result = new HashMap<>();
         Person person1 = new Person();
@@ -99,7 +155,11 @@ public class CardGame {
         return result;
     }
 
-    //插入排序
+    /**
+     * 插入排序
+     * @param pokerList
+     * @return
+     */
     public static List<Poker> insertSort(List<Poker> pokerList) {
         Poker[] array = new Poker[pokerList.size()];
         //list转成数组
