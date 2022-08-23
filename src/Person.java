@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,12 +19,18 @@ public class Person {
      */
     private Integer score;
 
+    public Person(String personName) {
+        this.personName = personName;
+        this.pokerList = new ArrayList<>();
+        this.score = 0;
+    }
+
     /**
      * 摸牌
      * @return
      */
-    public Poker getPoker(){
-        return null;
+    public void getPoker(Poker poker){
+        this.pokerList.add(poker);
     }
 
     /**
@@ -31,8 +38,8 @@ public class Person {
      *
      * @return
      */
-    public Poker removePoker(){
-        return null;
+    public void removePoker(List<Poker> pokers){
+        this.pokerList.removeAll(pokers);
     }
 
     public String getPersonName() {

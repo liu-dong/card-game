@@ -8,18 +8,32 @@ import java.util.stream.Collectors;
  */
 public class SJGame {
 
-    private List<Person> personList;
+    private Person onePerson;
+    private Person twoPerson;
+    private Person threePerson;
     private NewPokers newPokers;
 
-    public SJGame(List<Person> personList, NewPokers pokers) {
-        this.personList = personList;
+    public SJGame(NewPokers pokers) {
+        this.onePerson = new Person("甲");
+        this.twoPerson = new Person("乙");
+        this.threePerson = new Person("丙");
         this.newPokers = pokers;
     }
 
     public void startGaem(){
         //洗牌
         shuffle(newPokers.getPokers());
+
         //发牌
+        Poker one = toDeal(newPokers);
+        onePerson.getPoker(one);
+        //发牌
+        Poker two = toDeal(newPokers);
+        twoPerson.getPoker(two);
+        //发牌
+        Poker three = toDeal(newPokers);
+        twoPerson.getPoker(three);
+
 
     }
 
@@ -34,28 +48,16 @@ public class SJGame {
 
     /**
      * 发牌
-     * @param pokerList
+     * @param newPokers
      * @return
      */
-    private Map<String, Object> toDeal(List<Poker> pokerList) {
-        Map<String, Object> result = new HashMap<>();
-        Person person1 = new Person();
-        //排序
-        person1.setPokerList(insertSort(pokerList.subList(0, 17)));
-        System.out.println("甲的牌" + person1.getPokerList().size() + "张：" + person1.getPokerList().toString());
-        result.put("甲", person1);
-        Person person2 = new Person();
-        person2.setPokerList(insertSort(pokerList.subList(17, 34)));
-        System.out.println("乙的牌" + person2.getPokerList().size() + "张：" + person2.getPokerList().toString());
-        result.put("乙", person2);
-        Person person3 = new Person();
-        person3.setPokerList(insertSort(pokerList.subList(34, 51)));
-        System.out.println("丙的牌" + person3.getPokerList().size() + "张：" + person3.getPokerList().toString());
-        result.put("丙", person3);
-        List<Poker> finalCard = insertSort(pokerList.subList(51, 54));
-        System.out.println("底牌" + finalCard.size() + "张：" + finalCard);
-        result.put("底牌", finalCard);
-        return result;
+    private Poker toDeal(NewPokers newPokers) {
+        Random random = new Random();
+        int index = random.nextInt(newPokers.getPokers().size());
+        Poker poker = newPokers.getPokers().get(index);
+        newPokers.getPokers().remove(poker);
+        newPokers.surplusNum--;
+        return poker;
     }
 
     /**
@@ -65,5 +67,37 @@ public class SJGame {
      */
     public List<Poker> insertSort(List<Poker> pokers) {
         return pokers.stream().sorted(Comparator.comparing(Poker::getSort)).collect(Collectors.toList());
+    }
+
+    public Person getOnePerson() {
+        return onePerson;
+    }
+
+    public void setOnePerson(Person onePerson) {
+        this.onePerson = onePerson;
+    }
+
+    public Person getTwoPerson() {
+        return twoPerson;
+    }
+
+    public void setTwoPerson(Person twoPerson) {
+        this.twoPerson = twoPerson;
+    }
+
+    public Person getThreePerson() {
+        return threePerson;
+    }
+
+    public void setThreePerson(Person threePerson) {
+        this.threePerson = threePerson;
+    }
+
+    public NewPokers getNewPokers() {
+        return newPokers;
+    }
+
+    public void setNewPokers(NewPokers newPokers) {
+        this.newPokers = newPokers;
     }
 }

@@ -18,7 +18,7 @@ public class NewPokers {
     /**
      * 剩余数量
      */
-    private int surplusNum = 54;
+    public int surplusNum = 54;
 
     public NewPokers() {
         this.pokers = getPokerList();
@@ -67,13 +67,5 @@ public class NewPokers {
 
     public void setPokers(List<Poker> pokers) {
         this.pokers = pokers;
-    }
-
-    public int getSurplusNum() {
-        return surplusNum;
-    }
-
-    public void setSurplusNum(int surplusNum) {
-        this.surplusNum = surplusNum;
     }
 }
