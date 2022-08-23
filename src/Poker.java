@@ -1,11 +1,24 @@
 /**
+ *  扑克牌
+ *
  * @author LD
  */
 public class Poker {
+
+    /**
+     * 牌的序号（即大小，A,2,3,4,5,6,7,8,9,10,J,Q,K，王）
+     */
     private int sort;
-    //A,2,3,4,5,6,7,8,9,10,J,Q,K，王
-    private String number;//数字
-    //spade：黑桃,heart：红心,club：梅花,diamond：方块,red：大王,black：小王
+    /**
+     * 牌号
+     *
+     * A,2,3,4,5,6,7,8,9,10,J,Q,K，王
+     */
+    private String number;
+    /**
+     * 牌的花色
+     * spade：黑桃,heart：红心,club：梅花,diamond：方块,red：大王,black：小王
+     */
     private String flowerColor;
 
     public int getSort() {
@@ -38,12 +51,8 @@ public class Poker {
         this.flowerColor = flowerColor;
     }
 
-    public Poker() {
-    }
-
     @Override
     public String toString() {
-//        return "{" + "花色：" + flowerColor + ", 数字：" + number + "}\r\n";
         return "{" + sort+"：" + flowerColor + "—" + number + "}\r\n";
     }
 }

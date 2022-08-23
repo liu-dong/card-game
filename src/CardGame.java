@@ -8,7 +8,7 @@ public class CardGame {
     private final static String[] NUMBER = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
     //spade：黑桃,heart：红心,club：梅花,diamond：方块,red：大王,black：小王
 //    private final static String[] FLOWER_COLOR = {"spade", "heart", "club", "diamond"};
-    private final static String[] FLOWER_COLOR = {"黑桃", "红心", "梅花", "方块"};
+    private final static String[] FLOWER_COLOR = {"黑桃", "红心", "梅花", "方块","大王","小王"};
 
     public static void main(String[] args) {
         //生成一副牌
@@ -114,10 +114,7 @@ public class CardGame {
         for (String value : FLOWER_COLOR) {
             int sort = flowerColor++;
             for (String s : NUMBER) {
-                Poker poker = new Poker();
-                poker.setSort(sort);
-                poker.setNumber(s);
-                poker.setFlowerColor(value);
+                Poker poker = new Poker(sort,s ,value);
                 pokerList.add(poker);
                 sort += 4;
             }
