@@ -92,10 +92,8 @@ public class SJGame {
      */
     public void round(Person person) {
         //询问出牌人是否还有牌
-        if (person.hasPoker()) {
-            person.removePoker();
-            hasGameOver(person);
-        }
+        person.removePoker();
+        hasGameOver(person);
     }
 
 
@@ -104,13 +102,11 @@ public class SJGame {
      *
      * @param person
      */
-    public boolean hasGameOver(Person person) {
+    public void hasGameOver(Person person) {
         if (!person.hasPoker()) {
             gameOver = true;
             endGame(person);
-            return true;
         }
-        return false;
     }
 
     /**
