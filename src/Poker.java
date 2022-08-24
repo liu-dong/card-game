@@ -53,6 +53,6 @@ public class Poker {
 
     @Override
     public String toString() {
-        return "{" + sort+"：" + flowerColor + "—" + number + "}\r\n";
+        return "{" + sort+"：" + flowerColor + "—" + number + "}\n";
     }
 }

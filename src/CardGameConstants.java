@@ -7,4 +7,21 @@ public class CardGameConstants {
     //spade：黑桃,heart：红心,club：梅花,diamond：方块,red：大王,black：小王
 //    private final static String[] FLOWER_COLOR = {"spade", "heart", "club", "diamond"};
     public static final String[] FLOWER_COLOR = {"黑桃", "红心", "梅花", "方块", "小王", "大王"};
+
+    /**
+     * 地主
+     */
+    public static final String LANDLORD = "landlord";
+    /**
+     * 农民
+     */
+    public static final String PEASANT = "peasant";
+    /**
+     * 抢地主
+     */
+    public static final String LOOT = "loot";
+    /**
+     * 不抢
+     */
+    public static final String NOT_LOOT = "notLoot";
 }

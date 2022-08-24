@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,7 +22,9 @@ public class NewPokers {
     public NewPokers() {
         this.pokers = getPokerList();
         this.pokers = insertSort();//排序
-        System.out.println("一副新牌共" + this.pokers.size() + "张:" + this.pokers);
+        System.out.println("====================一副新牌共" + this.pokers.size() + "张====================");
+        System.out.println(this.pokers);
+        System.out.println("====================一副新牌共" + this.pokers.size() + "张====================");
     }
 
     /**
@@ -32,23 +33,29 @@ public class NewPokers {
      * @return
      */
     private List<Poker> getPokerList() {
+        System.out.println("====================生成一副牌====================");
         List<Poker> pokerList = new ArrayList<>(54);
         for (int i = 0; i < 4; i++) {
             int sort = i + 1;
-            System.out.println("生成第一种花色：" + CardGameConstants.FLOWER_COLOR[i]);
+            System.out.println("生成第" + sort + "种花色：" + CardGameConstants.FLOWER_COLOR[i]);
             for (String number : CardGameConstants.NUMBER) {
                 Poker poker = new Poker(sort, number, CardGameConstants.FLOWER_COLOR[i]);
+                System.out.print("====================生成一张牌：" + poker);
                 pokerList.add(poker);
                 sort += 4;
             }
         }
         //小王
-        Poker littleJoker = new Poker(53, "王", CardGameConstants.FLOWER_COLOR[4]);
+        Poker littleJoker = new Poker(53, "&", CardGameConstants.FLOWER_COLOR[4]);
+        System.out.println("生成第" + 5 + "种花色：" + CardGameConstants.FLOWER_COLOR[4]);
+        System.out.print("====================生成一张牌：" + littleJoker);
         //大王
-        Poker bigJoker = new Poker(54, "王", CardGameConstants.FLOWER_COLOR[5]);
+        Poker bigJoker = new Poker(54, "&", CardGameConstants.FLOWER_COLOR[5]);
+        System.out.println("生成第" + 6 + "种花色：" + CardGameConstants.FLOWER_COLOR[5]);
+        System.out.print("====================生成一张牌：" + bigJoker);
         pokerList.add(littleJoker);
         pokerList.add(bigJoker);
-        System.out.println("数量：" + pokerList.size());
+        System.out.println("====================生成一副牌——" + "数量：" + pokerList.size() + "张====================");
         return pokerList;
     }
 

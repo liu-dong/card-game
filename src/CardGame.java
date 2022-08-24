@@ -1,8 +1,11 @@
+/*
 import java.util.*;
 
+*/
 /**
  * @author LD
- */
+ *//*
+
 public class CardGame {
 
     private final static String[] NUMBER = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
@@ -25,11 +28,13 @@ public class CardGame {
         round(map, "丙");
     }
 
-    /**
+    */
+/**
      * 回合
      * @param map
      * @param personName
-     */
+     *//*
+
     private static void round(Map<String, Object> map, String personName) {
         String[] ss = getMovePoker(personName);
         //校验出牌是否符合规则
@@ -44,17 +49,19 @@ public class CardGame {
         if (pokerList.size() == 0) {
             System.out.println(personName + "赢了！");
         }
-        person.setPokerList(pokerList);
+        //person.setPokerList(pokerList);
         person.setScore(score);
         map.put(personName, person);
     }
 
-    /**
+    */
+/**
      * 出牌
      * @param ss
      * @param person
      * @return
-     */
+     *//*
+
     private static List<Poker> play(String[] ss, Person person) {
         List<Poker> pokerList = new ArrayList<>(person.getPokerList());
         for (String value : ss) {
@@ -66,11 +73,13 @@ public class CardGame {
         return pokerList;
     }
 
-    /**
+    */
+/**
      * 获取每个人需要出的牌
      * @param personName
      * @return
-     */
+     *//*
+
     private static String[] getMovePoker(String personName) {
         Scanner input = new Scanner(System.in);
         System.out.println(personName + "请输入要出牌的序号，用逗号隔开");
@@ -79,11 +88,13 @@ public class CardGame {
         return s.split(",");
     }
 
-    /**
+    */
+/**
      * 计分
      * @param ss
      * @return
-     */
+     *//*
+
     private static int computerScore(String[] ss) {
         int num = 0;//炸弹的数量
         int score = 100;//分数
@@ -104,10 +115,12 @@ public class CardGame {
     }
 
 
-    /**
+    */
+/**
      * 生成一副牌
      * @return
-     */
+     *//*
+
     private static List<Poker> getPokerList() {
         List<Poker> pokerList = new ArrayList<>();
         int flowerColor = 1;
@@ -129,11 +142,13 @@ public class CardGame {
         return pokerList;
     }
 
-    /**
+    */
+/**
      * 发牌
      * @param pokerList
      * @return
-     */
+     *//*
+
     private static Map<String, Object> toDeal(List<Poker> pokerList) {
         Map<String, Object> result = new HashMap<>();
         Person person1 = new Person();
@@ -150,16 +165,18 @@ public class CardGame {
         System.out.println("丙的牌" + person3.getPokerList().size() + "张：" + person3.getPokerList().toString());
         result.put("丙", person3);
         List<Poker> finalCard = insertSort(pokerList.subList(51, 54));
-        System.out.println("底牌" + finalCard.size() + "张：" + finalCard.toString());
+        System.out.println("底牌" + finalCard.size() + "张：" + finalCard);
         result.put("底牌", finalCard);
         return result;
     }
 
-    /**
+    */
+/**
      * 插入排序
      * @param pokerList
      * @return
-     */
+     *//*
+
     public static List<Poker> insertSort(List<Poker> pokerList) {
         Poker[] array = new Poker[pokerList.size()];
         //list转成数组
@@ -182,13 +199,17 @@ public class CardGame {
         return Arrays.asList(array);
     }
 
-    /**
+    */
+/**
      * 校验出牌规则
      * @param ss
      * @return
-     */
+     *//*
+
     public static boolean checkoutPlayRule  (String[] ss) {
-        /*斗地主*/
+        */
+/*斗地主*//*
+
         //炸弹
         //飞机
         //连对
@@ -197,7 +218,9 @@ public class CardGame {
         //三带
         //对子
         //单牌
-        /*双剑*/
+        */
+/*双剑*//*
+
         //炸弹（超过四个、双王炸，5-10-K）
         //飞机（以三带二为基础）
         //连对（三对以上）
@@ -208,3 +231,4 @@ public class CardGame {
         return true;
     }
 }
+*/

@@ -1,5 +1,5 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author LD
@@ -7,11 +7,15 @@ import java.util.List;
 public class Person {
 
     /**
+     * 持牌人类型(地主landlord、农民peasant)
+     */
+    private String personType;
+    /**
      * 持牌人
      */
     private String personName;
     /**
-     * 持有牌牌
+     * 持有牌
      */
     private List<Poker> pokerList;
     /**
@@ -27,10 +31,11 @@ public class Person {
 
     /**
      * 摸牌
+     *
      * @return
      */
-    public void getPoker(Poker poker){
-        this.pokerList.add(poker);
+    public void getPoker(Poker poker) {
+        pokerList.add(poker);
     }
 
     /**
@@ -38,9 +43,74 @@ public class Person {
      *
      * @return
      */
-    public void removePoker(List<Poker> pokers){
-        this.pokerList.removeAll(pokers);
+    public void removePoker() {
+        List<Poker> movePokers = getMovePoker();
+        pokerList.removeAll(movePokers);
+        System.out.println("===================="+this.personName + "出牌：\n" + movePokers);
     }
+
+    /**
+     * 理牌
+     */
+    public void sortPoker() {
+        pokerList = pokerList.stream().sorted(Comparator.comparing(Poker::getSort)).collect(Collectors.toList());
+        System.out.println(this);
+    }
+
+    /**
+     * 判断是否还有牌
+     *
+     * @return
+     */
+    public boolean hasPoker() {
+        return pokerList.size() > 0;
+    }
+
+    /**
+     * 获取需要出的牌
+     *
+     * @param
+     * @return
+     */
+    public List<Poker> getMovePoker() {
+        Scanner input = new Scanner(System.in);
+        System.out.println(this.personName + "请输入要出牌的序号，用逗号隔开");
+        String s = input.nextLine();
+        System.out.println(this.personName + "输入数字为：" + s);
+        String[] split = s.split(",");
+        List<String> list = Arrays.asList(split);
+        return pokerList.stream().filter(poker -> list.contains(poker.getSort())).collect(Collectors.toList());
+    }
+
+    /**
+     * 询问是否要地主
+     *
+     * @return
+     */
+    public boolean ask(){
+        return CardGameConstants.LOOT.equals(action());
+    }
+
+    /**
+     * 动作
+     *
+     * @return 抢地主(loot)、不抢(notLoot)、要(press)、不要(pass)
+     */
+    public String action(){
+        Scanner input = new Scanner(System.in);
+        System.out.println(this.personName + "请选择：1：抢地主，2：不抢");
+        String s = input.nextLine();
+        if ("1".equals(s)){
+            System.out.println(this.personName + "：抢地主");
+            return "loot";
+        }
+        if ("2".equals(s)){
+            System.out.println(this.personName + "：不抢");
+            return "notLoot";
+        }
+        return "notLoot";
+    }
+
 
     public String getPersonName() {
         return personName;
@@ -50,19 +120,24 @@ public class Person {
         this.personName = personName;
     }
 
-    public List<Poker> getPokerList() {
-        return pokerList;
-    }
-
-    public void setPokerList(List<Poker> pokerList) {
-        this.pokerList = pokerList;
-    }
-
     public Integer getScore() {
         return score;
     }
 
     public void setScore(Integer score) {
         this.score = score;
+    }
+
+    public String getPersonType() {
+        return personType;
+    }
+
+    public void setPersonType(String personType) {
+        this.personType = personType;
+    }
+
+    @Override
+    public String toString() {
+        return "====================持牌人：" + this.personName + "\n====================持有的牌：\n" + pokerList;
     }
 }

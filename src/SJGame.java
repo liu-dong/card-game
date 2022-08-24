@@ -12,29 +12,115 @@ public class SJGame {
     private Person twoPerson;
     private Person threePerson;
     private NewPokers newPokers;
+    private String winner;
+    public static boolean gameOver;//游戏结束
 
-    public SJGame(NewPokers pokers) {
+    public SJGame() {
         this.onePerson = new Person("甲");
         this.twoPerson = new Person("乙");
         this.threePerson = new Person("丙");
-        this.newPokers = pokers;
+        this.newPokers = new NewPokers();
+        gameOver = false;
     }
 
-    public void startGaem(){
+    /**
+     * 开始游戏
+     */
+    public void startGame() {
+        System.out.println("====================洗牌====================");
         //洗牌
         shuffle(newPokers.getPokers());
-
+        System.out.println(newPokers.getPokers());
+        System.out.println("====================发牌====================");
         //发牌
-        Poker one = toDeal(newPokers);
-        onePerson.getPoker(one);
-        //发牌
-        Poker two = toDeal(newPokers);
-        twoPerson.getPoker(two);
-        //发牌
-        Poker three = toDeal(newPokers);
-        twoPerson.getPoker(three);
+        toDealAll(newPokers, Arrays.asList(onePerson, twoPerson, threePerson));
+    }
+
+    /**
+     * 选地主
+     *
+     * @return
+     */
+    public String selectLandlord() {
+        boolean one = onePerson.ask();
+        boolean two = twoPerson.ask();
+        boolean three = threePerson.ask();
+        if (three) {
+            threePerson.setPersonType(CardGameConstants.LANDLORD);
+            twoPerson.setPersonType(CardGameConstants.PEASANT);
+            onePerson.setPersonType(CardGameConstants.PEASANT);
+            return threePerson.getPersonName();
+        } else if (two) {
+            twoPerson.setPersonType(CardGameConstants.LANDLORD);
+            threePerson.setPersonType(CardGameConstants.PEASANT);
+            onePerson.setPersonType(CardGameConstants.PEASANT);
+            return twoPerson.getPersonName();
+        } else {
+            onePerson.setPersonType(CardGameConstants.LANDLORD);
+            threePerson.setPersonType(CardGameConstants.PEASANT);
+            twoPerson.setPersonType(CardGameConstants.PEASANT);
+            return onePerson.getPersonName();
+        }
+    }
+
+    /**
+     * 回合
+     *
+     * @param player
+     */
+    public void enterRound(String player) {
+        if (gameOver) {
+            System.out.println("游戏结束");
+            return;
+        }
+        if (onePerson.getPersonName().equals(player)) {
+            round(onePerson);
+            enterRound(twoPerson.getPersonName());
+        }
+        if (twoPerson.getPersonName().equals(player)) {
+            round(twoPerson);
+            enterRound(threePerson.getPersonName());
+        }
+        if (threePerson.getPersonName().equals(player)) {
+            round(threePerson);
+            enterRound(onePerson.getPersonName());
+        }
+    }
+
+    /**
+     * 回合
+     */
+    public void round(Person person) {
+        //询问出牌人是否还有牌
+        if (person.hasPoker()) {
+            person.removePoker();
+            hasGameOver(person);
+        }
+    }
 
 
+    /**
+     * 判定游戏是否结束
+     *
+     * @param person
+     */
+    public boolean hasGameOver(Person person) {
+        if (!person.hasPoker()) {
+            gameOver = true;
+            endGame(person);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 结束游戏判定胜者
+     *
+     * @param person
+     */
+    public void endGame(Person person) {
+        this.winner = person.getPersonName();
+        System.out.println("游戏结束！胜者：" + this.winner);
     }
 
     /**
@@ -48,16 +134,34 @@ public class SJGame {
 
     /**
      * 发牌
+     *
      * @param newPokers
      * @return
      */
-    private Poker toDeal(NewPokers newPokers) {
+    private void toDeal(NewPokers newPokers, Person person) {
         Random random = new Random();
         int index = random.nextInt(newPokers.getPokers().size());
         Poker poker = newPokers.getPokers().get(index);
         newPokers.getPokers().remove(poker);
         newPokers.surplusNum--;
-        return poker;
+        person.getPoker(poker);
+    }
+
+    /**
+     * 发完全部的牌
+     *
+     * @param newPokers
+     * @param personList
+     */
+    private void toDealAll(NewPokers newPokers, List<Person> personList) {
+        while (newPokers.surplusNum > 0) {
+            for (Person person : personList) {
+                toDeal(newPokers, person);
+            }
+        }
+        for (Person person : personList) {
+            person.sortPoker();
+        }
     }
 
     /**
