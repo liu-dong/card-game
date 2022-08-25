@@ -1,3 +1,5 @@
+package com.dong.dzj;
+
 import com.dong.common.GameConstants;
 
 import java.util.*;
@@ -48,7 +50,7 @@ public class Person {
     public void removePoker() {
         List<Poker> movePokers = getMovePoker();
         pokerList.removeAll(movePokers);
-        System.out.println("===================="+this.personName + "出牌：\n" + movePokers);
+        System.out.println("====================" + this.personName + "出牌：\n" + movePokers);
     }
 
     /**
@@ -89,7 +91,7 @@ public class Person {
      *
      * @return
      */
-    public boolean askPlay(){
+    public boolean askPlay() {
         System.out.println(this.personName + "请选择：3：要，4：不要");
         return GameConstants.PRESS.equals(action());
     }
@@ -99,7 +101,7 @@ public class Person {
      *
      * @return
      */
-    public boolean askLoot(){
+    public boolean askLoot() {
         System.out.println(this.personName + "请选择：1：抢地主，2：不抢");
         return GameConstants.LOOT.equals(action());
     }
@@ -109,22 +111,22 @@ public class Person {
      *
      * @return 抢地主(loot)、不抢(notLoot)、要(press)、不要(pass)
      */
-    public String action(){
+    public String action() {
         Scanner input = new Scanner(System.in);
         String s = input.nextLine();
-        if ("1".equals(s)){
+        if ("1".equals(s)) {
             System.out.println(this.personName + "：抢地主");
             return "loot";
         }
-        if ("2".equals(s)){
+        if ("2".equals(s)) {
             System.out.println(this.personName + "：不抢");
             return "notLoot";
         }
-        if ("3".equals(s)){
+        if ("3".equals(s)) {
             System.out.println(this.personName + "：要");
             return "press";
         }
-        if ("4".equals(s)){
+        if ("4".equals(s)) {
             System.out.println(this.personName + "：不要");
             return "pass";
         }

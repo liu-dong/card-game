@@ -1,3 +1,5 @@
+package com.dong.dzj;
+
 import com.dong.common.GameConstants;
 
 import java.util.ArrayList;

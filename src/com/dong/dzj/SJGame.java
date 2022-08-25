@@ -1,3 +1,5 @@
+package com.dong.dzj;
+
 import com.dong.common.GameConstants;
 
 import java.util.*;
@@ -97,7 +99,7 @@ public class SJGame {
     public void round(Person person) {
         if (roundCount != 1 && pass != 2) {
             boolean play = person.askPlay();
-            if (!play){
+            if (!play) {
                 pass++;
                 return;
             }
