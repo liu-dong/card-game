@@ -14,6 +14,8 @@ public class SJGame {
     private NewPokers newPokers;
     private String winner;
     public static boolean gameOver;//游戏结束
+    private int roundCount = 1;
+    private int pass = 0;
 
     public SJGame() {
         this.onePerson = new Person("甲");
@@ -42,9 +44,9 @@ public class SJGame {
      * @return
      */
     public String selectLandlord() {
-        boolean one = onePerson.ask();
-        boolean two = twoPerson.ask();
-        boolean three = threePerson.ask();
+        boolean one = onePerson.askLoot();
+        boolean two = twoPerson.askLoot();
+        boolean three = threePerson.askLoot();
         if (three) {
             threePerson.setPersonType(CardGameConstants.LANDLORD);
             twoPerson.setPersonType(CardGameConstants.PEASANT);
@@ -91,9 +93,17 @@ public class SJGame {
      * 回合
      */
     public void round(Person person) {
-        //询问出牌人是否还有牌
+        if (roundCount != 1 && pass != 2) {
+            boolean play = person.askPlay();
+            if (!play){
+                pass++;
+                return;
+            }
+        }
         person.removePoker();
         hasGameOver(person);
+        roundCount++;
+        pass = 0;
     }
 
 

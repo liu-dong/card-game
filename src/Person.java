@@ -79,15 +79,26 @@ public class Person {
         System.out.println(this.personName + "输入数字为：" + s);
         String[] split = s.split(",");
         List<String> list = Arrays.asList(split);
-        return pokerList.stream().filter(poker -> list.contains(poker.getSort())).collect(Collectors.toList());
+        return pokerList.stream().filter(poker -> list.contains(String.valueOf(poker.getSort()))).collect(Collectors.toList());
     }
 
     /**
-     * 询问是否要地主
+     * 询问是否出牌
      *
      * @return
      */
-    public boolean ask(){
+    public boolean askPlay(){
+        System.out.println(this.personName + "请选择：3：要，4：不要");
+        return CardGameConstants.PRESS.equals(action());
+    }
+
+    /**
+     * 询问是否抢地主
+     *
+     * @return
+     */
+    public boolean askLoot(){
+        System.out.println(this.personName + "请选择：1：抢地主，2：不抢");
         return CardGameConstants.LOOT.equals(action());
     }
 
@@ -98,7 +109,6 @@ public class Person {
      */
     public String action(){
         Scanner input = new Scanner(System.in);
-        System.out.println(this.personName + "请选择：1：抢地主，2：不抢");
         String s = input.nextLine();
         if ("1".equals(s)){
             System.out.println(this.personName + "：抢地主");
@@ -108,7 +118,15 @@ public class Person {
             System.out.println(this.personName + "：不抢");
             return "notLoot";
         }
-        return "notLoot";
+        if ("3".equals(s)){
+            System.out.println(this.personName + "：要");
+            return "press";
+        }
+        if ("4".equals(s)){
+            System.out.println(this.personName + "：不要");
+            return "pass";
+        }
+        return "null";
     }
 
 

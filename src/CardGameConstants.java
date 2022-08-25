@@ -24,4 +24,12 @@ public class CardGameConstants {
      * 不抢
      */
     public static final String NOT_LOOT = "notLoot";
+    /**
+     * 要
+     */
+    public static final String PRESS = "press";
+    /**
+     * 不要
+     */
+    public static final String PASS = "pass";
 }
