@@ -11,23 +11,28 @@ import java.util.stream.Collectors;
 public class Person {
 
     /**
+     * 进入游戏顺序
+     */
+    public int number;
+    /**
      * 持牌人类型(地主landlord、农民peasant)
      */
-    private String personType;
+    public String personType;
     /**
      * 持牌人
      */
-    private String personName;
+    public String personName;
     /**
      * 持有牌
      */
-    private List<Poker> pokerList;
+    public List<Poker> pokerList;
     /**
      * 积分
      */
-    private Integer score;
+    public Integer score;
 
-    public Person(String personName) {
+    public Person(int number, String personName) {
+        this.number = number;
         this.personName = personName;
         this.pokerList = new ArrayList<>();
         this.score = 0;
@@ -101,9 +106,11 @@ public class Person {
      *
      * @return
      */
-    public boolean askLoot() {
+    public Map<Integer,Boolean> askLoot() {
         System.out.println(this.personName + "请选择：1：抢地主，2：不抢");
-        return GameConstants.LOOT.equals(action());
+        Map<Integer,Boolean> map = new HashMap<>();
+        map.put(number,GameConstants.LOOT.equals(action()));
+        return map;
     }
 
     /**
@@ -131,31 +138,6 @@ public class Person {
             return "pass";
         }
         return "null";
-    }
-
-
-    public String getPersonName() {
-        return personName;
-    }
-
-    public void setPersonName(String personName) {
-        this.personName = personName;
-    }
-
-    public Integer getScore() {
-        return score;
-    }
-
-    public void setScore(Integer score) {
-        this.score = score;
-    }
-
-    public String getPersonType() {
-        return personType;
-    }
-
-    public void setPersonType(String personType) {
-        this.personType = personType;
     }
 
     @Override
