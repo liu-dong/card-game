@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 /**
  * @author LD
  */
-public class Person {
+public class Player {
 
     /**
      * 进入游戏顺序
@@ -31,7 +31,7 @@ public class Person {
      */
     public Integer score;
 
-    public Person(int number, String personName) {
+    public Player(int number, String personName) {
         this.number = number;
         this.personName = personName;
         this.pokerList = new ArrayList<>();
@@ -48,6 +48,14 @@ public class Person {
     }
 
     /**
+     * 理牌
+     */
+    public void sortPoker() {
+        pokerList = pokerList.stream().sorted(Comparator.comparing(Poker::getSort)).collect(Collectors.toList());
+        System.out.println(this);
+    }
+
+    /**
      * 出牌
      *
      * @return
@@ -59,11 +67,24 @@ public class Person {
     }
 
     /**
-     * 理牌
+     * 抢地主
      */
-    public void sortPoker() {
-        pokerList = pokerList.stream().sorted(Comparator.comparing(Poker::getSort)).collect(Collectors.toList());
-        System.out.println(this);
+    public void grabLandlord(){
+
+    }
+
+    /**
+     * 跳过回合（过、不抢、不要）
+     */
+    public void skipRound(){
+
+    }
+
+    /**
+     * 宣布胜利
+     */
+    public void declareVictory(){
+
     }
 
     /**

@@ -1,6 +1,6 @@
 package com.dong.dzj;
 
-import com.dong.common.GameConstants;
+import com.dong.sj.Person;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -10,23 +10,40 @@ import java.util.stream.Collectors;
  *
  * @author liudong 2022/8/23
  */
-public class SJGame {
+public class DDZGame {
 
-    private Person onePerson;
-    private Person twoPerson;
-    private Person threePerson;
-    private NewPokers newPokers;
-    private String winner;
-    public static boolean gameOver;//游戏结束
-    private int roundCount = 1;
-    private int pass = 0;
+    /**
+     * 玩家一
+     */
+    public Player onePlayer;
 
-    public SJGame() {
-        this.onePerson = new Person("甲");
-        this.twoPerson = new Person("乙");
-        this.threePerson = new Person("丙");
-        this.newPokers = new NewPokers();
-        gameOver = false;
+    /**
+     * 玩家二
+     */
+    public Player twoPlayer;
+
+    /**
+     * 玩家三
+     */
+    public Player threePlayer;
+
+    /**
+     * 一副牌
+     */
+    public List<Poker> pokers;
+
+    /**
+     * 胜者
+     */
+    public String winner;
+
+
+    /**
+     * 准备游戏
+     */
+    public void prepareGame() {
+        System.out.println("====================开始游戏====================");
+        System.out.println("====================等待玩家加入====================");
     }
 
     /**
@@ -35,18 +52,33 @@ public class SJGame {
     public void startGame() {
         System.out.println("====================洗牌====================");
         //洗牌
-        shuffle(newPokers.getPokers());
-        System.out.println(newPokers.getPokers());
+        shuffle(pokers);
+        System.out.println(pokers);
         System.out.println("====================发牌====================");
         //发牌
-        toDealAll(newPokers, Arrays.asList(onePerson, twoPerson, threePerson));
+        toDealAll(pokers, Arrays.asList(onePlayer, twoPlayer, threePlayer));
+
+    }
+
+    /**
+     * 抢地主回合
+     */
+    public void grabLandlordRound() {
+
+    }
+
+    /**
+     * 出牌回合
+     */
+    public void playPokerRound() {
+
     }
 
     /**
      * 选地主
      *
      * @return
-     */
+     *//*
     public String selectLandlord() {
         boolean one = onePerson.askLoot();
         boolean two = twoPerson.askLoot();
@@ -69,11 +101,11 @@ public class SJGame {
         }
     }
 
-    /**
+    *//**
      * 回合
      *
      * @param player
-     */
+     *//*
     public void enterRound(String player) {
         if (gameOver) {
             System.out.println("游戏结束");
@@ -93,9 +125,9 @@ public class SJGame {
         }
     }
 
-    /**
+    *//**
      * 回合
-     */
+     *//*
     public void round(Person person) {
         if (roundCount != 1 && pass != 2) {
             boolean play = person.askPlay();
@@ -111,17 +143,17 @@ public class SJGame {
     }
 
 
-    /**
+    *//**
      * 判定游戏是否结束
      *
      * @param person
-     */
+     *//*
     public void hasGameOver(Person person) {
         if (!person.hasPoker()) {
             gameOver = true;
             endGame(person);
         }
-    }
+    }*/
 
     /**
      * 结束游戏判定胜者
@@ -145,32 +177,31 @@ public class SJGame {
     /**
      * 发牌
      *
-     * @param newPokers
+     * @param player
      * @return
      */
-    private void toDeal(NewPokers newPokers, Person person) {
+    private void toDeal(List<Poker> pokers, Player player) {
         Random random = new Random();
-        int index = random.nextInt(newPokers.getPokers().size());
-        Poker poker = newPokers.getPokers().get(index);
-        newPokers.getPokers().remove(poker);
-        newPokers.surplusNum--;
-        person.getPoker(poker);
+        int index = random.nextInt(pokers.size());
+        Poker poker = pokers.get(index);
+        pokers.remove(poker);
+        player.getPoker(poker);
     }
 
     /**
      * 发完全部的牌
      *
-     * @param newPokers
-     * @param personList
+     * @param pokers
+     * @param playerList
      */
-    private void toDealAll(NewPokers newPokers, List<Person> personList) {
-        while (newPokers.surplusNum > 0) {
-            for (Person person : personList) {
-                toDeal(newPokers, person);
+    private void toDealAll(List<Poker> pokers, List<Player> playerList) {
+        while (pokers.size() > 0) {
+            for (Player player : playerList) {
+                toDeal(pokers, player);
             }
         }
-        for (Person person : personList) {
-            person.sortPoker();
+        for (Player player : playerList) {
+            player.sortPoker();
         }
     }
 
@@ -181,37 +212,5 @@ public class SJGame {
      */
     public List<Poker> insertSort(List<Poker> pokers) {
         return pokers.stream().sorted(Comparator.comparing(Poker::getSort)).collect(Collectors.toList());
-    }
-
-    public Person getOnePerson() {
-        return onePerson;
-    }
-
-    public void setOnePerson(Person onePerson) {
-        this.onePerson = onePerson;
-    }
-
-    public Person getTwoPerson() {
-        return twoPerson;
-    }
-
-    public void setTwoPerson(Person twoPerson) {
-        this.twoPerson = twoPerson;
-    }
-
-    public Person getThreePerson() {
-        return threePerson;
-    }
-
-    public void setThreePerson(Person threePerson) {
-        this.threePerson = threePerson;
-    }
-
-    public NewPokers getNewPokers() {
-        return newPokers;
-    }
-
-    public void setNewPokers(NewPokers newPokers) {
-        this.newPokers = newPokers;
     }
 }

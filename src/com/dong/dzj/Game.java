@@ -6,7 +6,7 @@ package com.dong.dzj;
 public class Game {
 
     public static void main(String[] args) {
-        //开启一盘游戏
+        /*//开启一盘游戏
         SJGame game = new SJGame();
         System.out.println("====================游戏开始====================");
         game.startGame();
@@ -14,6 +14,6 @@ public class Game {
         String landlord = game.selectLandlord();
         System.out.println("====================地主：" + landlord + "====================");
         System.out.println("====================游戏进入回合，" + landlord + "先出====================");
-        game.enterRound(landlord);
+        game.enterRound(landlord);*/
     }
 }
