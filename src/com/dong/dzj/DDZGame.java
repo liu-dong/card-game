@@ -185,14 +185,13 @@ public class DDZGame {
      * @return
      */
     public String round(Player player) {
+        player.sortPoker();
         if (roundCount != 1 && skipRoundCount != 2) {
             boolean play = player.askPlay();
             if (!play) {
                 skipRoundCount++;
                 return null;
             }
-        } else {
-            System.out.println("地主开始出牌！");
         }
         player.removePoker();
         if (!player.hasPoker()) {
