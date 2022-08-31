@@ -69,22 +69,21 @@ public class Player {
     /**
      * 抢地主
      */
-    public void grabLandlord(){
+    public void grabLandlord() {
 
     }
 
     /**
      * 跳过回合（过、不抢、不要）
      */
-    public void skipRound(){
+    public void skipRound() {
 
     }
 
     /**
      * 宣布胜利
      */
-    public void declareVictory(){
-
+    public void declareVictory() {
     }
 
     /**
@@ -123,15 +122,45 @@ public class Player {
     }
 
     /**
-     * 询问是否抢地主
+     * 是否抢地主
      *
      * @return
      */
-    public Map<Integer,Boolean> askLoot() {
+    public boolean lootLandlord() {
+        boolean result = false;
         System.out.println(this.personName + "请选择：1：抢地主，2：不抢");
-        Map<Integer,Boolean> map = new HashMap<>();
-        map.put(number,GameConstants.LOOT.equals(action()));
-        return map;
+        Scanner input = new Scanner(System.in);
+        String s = input.nextLine();
+        if ("1".equals(s)) {
+            System.out.println(this.personName + "：抢地主");
+            result = true;
+        }
+        if ("0".equals(s)) {
+            System.out.println(this.personName + "：不抢");
+            result = false;
+        }
+        return result;
+    }
+
+    /**
+     * 是否叫地主
+     *
+     * @return
+     */
+    public boolean callLandlore() {
+        boolean result = false;
+        System.out.println(this.personName + "请选择：1：叫地主，2：不叫");
+        Scanner input = new Scanner(System.in);
+        String s = input.nextLine();
+        if ("1".equals(s)) {
+            System.out.println(this.personName + "：叫地主");
+            result = true;
+        }
+        if ("0".equals(s)) {
+            System.out.println(this.personName + "：不叫");
+            result = false;
+        }
+        return result;
     }
 
     /**
@@ -159,6 +188,15 @@ public class Player {
             return "pass";
         }
         return "null";
+    }
+
+    /**
+     * 排序
+     *
+     * @return
+     */
+    public List<Poker> insertSort(List<Poker> pokers) {
+        return pokers.stream().sorted(Comparator.comparing(Poker::getSort)).collect(Collectors.toList());
     }
 
     @Override
